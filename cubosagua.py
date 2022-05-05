@@ -63,6 +63,7 @@ class juegoCubos:
         print('  (L)lenar un cubo')
         print('  (V)aciar un cubo')
         print('  (M)over el agua de un cubo a otro')
+        print('  Llenar (T)odos')
         print('  (S)alir')
 
         while True:
@@ -71,7 +72,7 @@ class juegoCubos:
                 print('Gracias por jugar!')
                 sys.exit()
 
-            if move in ('L', 'V', 'M'):
+            if move in ('L', 'V', 'M', 'T'):
                 return move
 
     def selecCubo(self, mensaje):
@@ -110,14 +111,34 @@ class juegoCubos:
             opcion = self.selecOpcion()
             if opcion == 'L':
                 cubo = self.selecCubo('Selecciona el cubo 8, 5, 3 o SALIR:')
-                self.llenarCubo(cubo)
+                if cubo == 'SALIR' or cubo == 'S':
+                    print('Has vuelto al menú anterior')
+                    self.jugar()
+                else:
+                    self.llenarCubo(cubo)
             elif opcion == "V":
                 cubo = self.selecCubo('Selecciona el cubo 8, 5, 3 o SALIR:')
-                self.vaciarCubo(cubo)
+                if cubo == 'SALIR' or cubo == 'S':
+                    print('Has vuelto al menú anterior')
+                    self.jugar()
+                else:
+                    self.vaciarCubo(cubo)
             elif opcion == "M":
                 cuboOrigen = self.selecCubo('Selecciona el cubo ORIGEN 8, 5, 3 o SALIR:')
-                cuboDestino = self.selecCubo('Selecciona el cubo DESTINO 8, 5, 3 o SALIR:')
-                self.moverCubo(cuboOrigen, cuboDestino)
+                if cuboOrigen == 'SALIR' or cuboOrigen == 'S':
+                    print('Has vuelto al menú anterior')
+                    self.jugar()
+                else:
+                    cuboDestino = self.selecCubo('Selecciona el cubo DESTINO 8, 5, 3 o SALIR:')
+                    if cuboDestino == 'SALIR' or cuboDestino == 'S':
+                        print('Has vuelto al menú anterior')
+                        self.jugar()
+                    else:
+                        self.moverCubo(cuboOrigen, cuboDestino)
+            elif opcion == 'T':
+                self.llenarCubo('8')
+                self.llenarCubo('5')
+                self.llenarCubo('3')
             self.mostrarEstadoCubos()
             self.checkObjetivo()
 
